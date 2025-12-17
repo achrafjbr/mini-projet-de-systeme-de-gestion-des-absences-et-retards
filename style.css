@@ -10,7 +10,16 @@
     --secondary-color: #88FFC3;
     --container-color: rgba(255, 255, 255, 0.48);
     --apprenant-card-color: rgba(46, 187, 116, 0.38);
+    --gray-font-color: rgba(151, 158, 172, 1);
 
+}
+
+.screen {
+    display: none;
+}
+
+.screen.active-screen {
+    display: block;
 }
 
 .container {
@@ -36,9 +45,9 @@ for adding more space between it and the content */
 .content {
     padding-top: calc(7rem / 2 + 5%);
     height: 100%;
-    overflow: auto;
+    overflow-y: auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
     position: relative;
 }
 
@@ -56,8 +65,11 @@ for adding more space between it and the content */
     - in .content class i'll change " grid-template-columns: 1fr 1fr" to  "grid-template-columns: 1fr"
     from 2 column to one if ".rigth-side.isEmbeded"
 */
+.rigth-side{
+    display: none;
+}
 .rigth-side.isEmbeded {
-    /*display: block;*/
+    display: block;
 }
 
 
@@ -102,7 +114,6 @@ for adding more space between it and the content */
 }
 
 /* Apprenant Cards */
-
 .left-side .apprenant-cards {
     background-color: var(--container-color);
     border-radius: 10px;
@@ -216,13 +227,13 @@ for adding more space between it and the content */
     color: white;
 }
 
-.cards .card.isActive {
+.cards .card.active-card {
     background-color: var(--primary-color);
 }
 
-.card.isActive h4,
-.card.isActive h3,
-.card.isActive img {
+.card.active-card h4,
+.card.active-card h3,
+.card.active-card img {
     color: var(--white);
 }
 
@@ -236,4 +247,88 @@ h3 {
 
 }
 
-/**/
+/* INSCRIPTION */
+
+.rigth-side {
+    border-radius: 20px;
+    background-color: var(--container-color);
+    padding: 1rem;
+    height: 80%;
+}
+
+.apprenant-inscription {}
+
+.inscription-form {
+    margin-top: 30px;
+    margin-left: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+
+.header-inscription h2,
+h5 {
+    margin-left: 10px;
+}
+
+.header-inscription h2 {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.header-inscription h5 {
+    color: var(--gray-font-color);
+}
+
+.inscription-form input {
+    all: unset;
+    height: 40px;
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+    color: var(--white);
+}
+
+.inscription-form>div label {
+    font-weight: bold;
+}
+
+.inscription-form input:focus {
+    border: 1px solid var(--white);
+}
+
+.inscription-btn {
+    margin: 40px auto;
+    text-align: center;
+
+}
+
+.inscription-btn button {
+    all: unset;
+    background-color: var(--secondary-color);
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    z-index: 11;
+
+}
+
+
+.inscription-btn button::before {
+    content: '';
+    background: rgba(203, 255, 125, 0.5);
+    width: 0;
+    height: 50px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    transition: all .5s steps(3);
+    z-index: 1;
+}
+
+.inscription-btn:hover::before {
+    width: 100%;
+}
