@@ -47,17 +47,19 @@ for adding more space between it and the content */
     height: 100%;
     overflow-y: auto;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2fr;
     position: relative;
 }
+
+
 
 .content .left-side {
     width: 100%;
     /* I'll change this width using js */
     margin: auto;
-    transition: all .5s linear;
     border-radius: 20px;
     padding: .5rem;
+    transition: width .5s linear;
 }
 
 /*
@@ -65,13 +67,14 @@ for adding more space between it and the content */
     - in .content class i'll change " grid-template-columns: 1fr 1fr" to  "grid-template-columns: 1fr"
     from 2 column to one if ".rigth-side.isEmbeded"
 */
-.rigth-side{
+.rigth-side {
     display: none;
 }
+
 .rigth-side.isEmbeded {
     display: block;
+    height: max-content;
 }
-
 
 
 .content .add-apprenant {
@@ -121,6 +124,7 @@ for adding more space between it and the content */
     grid-template-columns: repeat(4, 1fr);
 }
 
+
 /*Tablet*/
 @media (max-width:992px) {
     .left-side .apprenant-cards {
@@ -155,6 +159,7 @@ for adding more space between it and the content */
     height: max-content;
     */
     padding: 20px 15px;
+    box-shadow: 0 3px 20px 2px var(--apprenant-card-color);
 
 }
 
@@ -300,35 +305,113 @@ h5 {
 .inscription-btn {
     margin: 40px auto;
     text-align: center;
-
+    position: relative;
+    width: 200px;
+    height: 50px;
 }
 
 .inscription-btn button {
-    all: unset;
     background-color: var(--secondary-color);
     width: 200px;
     height: 50px;
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
-    position: relative;
-    z-index: 11;
-
+    border: none;
 }
 
 
-.inscription-btn button::before {
+.inscription-btn::before {
     content: '';
     background: rgba(203, 255, 125, 0.5);
     width: 0;
-    height: 50px;
+    height: 0;
     position: absolute;
     left: 0px;
-    top: 0px;
-    transition: all .5s steps(3);
-    z-index: 1;
+    right: 0px;
+    transition: all .5s ease-in-out;
+    border-radius: 10px;
+
 }
 
 .inscription-btn:hover::before {
-    width: 100%;
+    width: 200px;
+    height: 50px;
+    z-index: -1;
+}
+
+/* Retard popup */
+
+.retard-popup-container {
+    width: 40%;
+    height: 50%;
+    background-color: var(--primary-color);
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    transform: translate(calc(50vw - 50%), 50%);
+    border-radius: 15px;
+    transition: all 0.5s ease-in;
+    display: none;
+
+}
+
+.retard-popup-container.isPopedup {
+    display: block;
+    /* display: none; */
+    box-shadow: 10px 19px 100px 10px var(--secondary-color);
+
+}
+
+.retard-popup-container img {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    margin: 4px;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.retard-popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 10%;
+}
+
+.retard-popup input[type="text"] {
+    width: 20rem;
+    height: 4rem;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+
+}
+
+.retard-popup label {
+    font-weight: 600;
+    color: white;
+
+}
+
+.retard-popup input[type="time"] {
+    width: 20rem;
+    height: 2rem;
+    background: rgba(203, 255, 125, 0.5);
+    text-align: center;
+    margin-top: 5px;
+}
+
+.retard-popup button {
+    border: none;
+    border-radius: 10px;
+    width: 15rem;
+    height: 2.5rem;
+    background: rgba(203, 255, 125, 0.5);
+
 }
