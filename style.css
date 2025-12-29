@@ -415,3 +415,78 @@ h5 {
     background: rgba(203, 255, 125, 0.5);
 
 }
+
+/*LOGIN SECTION...*/
+
+.login-container {
+    background-image: linear-gradient(to right, #c9ecff 30%, #e6e6ff, #a0bbfe);
+    filter: drop-shadow(20px 10px 6px #e6e6ff);
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 20px;
+}
+
+.left-side-login {
+    align-self: center;
+    flex: 1;
+}
+
+.left-side-login h1 {
+    font-size: clamp(0.5rem, 1.5vw, 1rem);
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.rigth-side-login {
+    background: #f9f6fd;
+    flex: 2;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px 2px #e6e6ff, -2px -2px 10px 2px #c9ecff;
+
+}
+
+.rigth-side-login .login-card {
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.rigth-side-login .login-card h4 {
+    color: var(--gray-font-color);
+}
+
+.rigth-side-login .login-card :nth-child(2) input {
+    all: unset;
+    width: 300px;
+    height: 40px;
+    border: 1px solid #c9ecff;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.rigth-side-login .login-card :nth-child(2) button {
+    all: unset;
+    width: 120px;
+    height: 40px;
+    border-radius: 13px;
+    border: 1px solid #c9ecff;
+    background-color: #a0bbfe;
+    text-align: center;
+    cursor: pointer;
+}
+
+.validation-user-id {
+    padding-top: 10px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s linear;
+    color: wheat;
+}
+
+.validation-user-id.is-none-valide {
+    color: red;
+    opacity: 1;
+}

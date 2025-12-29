@@ -422,6 +422,25 @@ cardsOfLeftSide.addEventListener("click", event => {
 */
 
 
-// 
+// Login Section.
+document.querySelector('.login-btn').addEventListener('click', event => login());
+const login = () => {
+    let inputUserId = document.querySelector('#user-id').value;
+    const apprenants = getApprenants();
+    let userId = apprenants.find((user) => Number(user.id) == inputUserId);
+    if (userId != undefined) {
+         // Go to the user profile page...
+         // route to the user path.
+        window.location.href = `profil.html?${inputUserId}`;
+    } else {
+        validation();
+    }
+}
 
-
+const validation = () => {
+    let validationId = document.querySelector(".validation-user-id");
+    validationId.classList.add('is-none-valide');
+    setTimeout(() => {
+        validationId.classList.remove('is-none-valide');
+    }, 1000);
+}
