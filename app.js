@@ -91,8 +91,8 @@ let apprenantImageList = [
 
 
 const generatingRandomApprenantImage = () => {
-    let randomAprrenantImage = Math.floor(Math.random() * apprenantImageList.length);
-    console.log(apprenantImageList[randomAprrenantImage]);
+    let randomAprrenantImage = Math.round(Math.random() * apprenantImageList.length - 1);
+    // console.log(apprenantImageList[randomAprrenantImage]);
     return apprenantImageList[randomAprrenantImage];
 }
 
@@ -145,8 +145,7 @@ const buildingApprenantCard = (apprenants) => {
 
     <div class="apprenant-status">
       <label>
-        <input type="radio" name="status-${apprenant.id}" value="present"
-          ${apprenant.status.present ? "checked" : ""}>
+        <input type="radio" name="status-${apprenant.id}" value="present"${apprenant.status.present ? "checked" : ""}>
         Present
       </label>
 
@@ -171,7 +170,8 @@ const buildingApprenantCard = (apprenants) => {
 window.onload = () => {
     resetApprenantCards();
     let apprenants = getApprenants();
-    console.log(apprenants[0].image);
+    document.querySelector(".student-number").innerText = apprenants.length;
+    // console.log(apprenants[0].image);
     if (apprenants.length > 0) {
         buildingApprenantCard(apprenants);
     }
@@ -180,10 +180,48 @@ window.onload = () => {
 let retardPopup = document.querySelector('.retard-popup-container');
 
 //Show popo up container.
-const showPopUp = () => { retardPopup.classList.add('isPopedup'); }
+const showPopUp = () => {
+    console.log("showPopUp");
+    retardPopup.classList.add('isPopedup');
+
+}
 //Hide popo up container.
-retardPopup.addEventListener('click', _ => { retardPopup.classList.remove('isPopedup'); });
-const hidePopUp = () => { retardPopup.classList.remove('isPopedup'); }
+document.querySelector('.retard-popup-container')
+    .addEventListener('click', event => hidePopUp(event));
+
+
+const hidePopUp = (event) => {
+    console.log("HIDE POPUP");
+    const closingPopup = event.target.closest(".close-popup");
+    if (!closingPopup) return
+    else { retardPopup.classList.remove('isPopedup'); }
+}
+
+
+/*
+    ---> General Structure of the apprenant <---:
+
+        id: Date.now(),
+        prenom: prenom,
+        nom: nom,
+        group: group,
+        status:{
+             present: "present",
+             absent: "absent",
+             retard: {
+                enretard:  "retard",
+                motif: "",
+                temp: "",
+            }
+        },
+        statistique:{
+            numberAbsence: 0,
+            tauxPresence: 0, 
+            numberRetard: 0,
+        }
+        
+*/
+
 
 cardsOfLeftSide.addEventListener("change", (e) => {
     if (!e.target.matches('input[type="radio"]')) return;
@@ -191,38 +229,57 @@ cardsOfLeftSide.addEventListener("change", (e) => {
     const card = e.target.closest(".apprenant-card");
     const id = Number(card.dataset.id);
     const value = e.target.value;
+    console.log("Radio Value:", value);
     let apprenants = getApprenants();
-    const apprenant = apprenants.find(a => a.id === id);
+    const apprenant = apprenants.find(apprenant => apprenant.id === id);
     //console.log(card.children[4].lastElementChild);
-
     if (!apprenant) return;
-    // Catch  entred data ( motif, temp ).
-    document.querySelector(".retard-btn").addEventListener('click', _ => {
-        let motif = document.querySelector('input[name=motif]').value;
-        let temp = document.querySelector('input[name=temp]').value;
-        if (value === "retard") {
-            // Show retard popup.
-            showPopUp();
-            apprenant.status = {
-                present: value === "present",
-                absent: value === "absent",
-                retard: {
-                    enretard: value === "retard",
-                    motif: apprenant.status.retard.motif = motif ?? motif,
-                    temp: apprenant.status.retard.temp = temp ?? temp,
-                }
-            };
-        }
 
+    let motif = "";
+    let temp = "";
+
+    if (value === "retard") {
+
+        // Show retard popup.
+        showPopUp();
+
+        document.querySelector(".retard-btn").addEventListener('click', ev => {
+            let motif = document.querySelector('input[name="motif"]').value;
+            let temp = document.querySelector('input[name="temp"]').value;
+            apprenant.status.retard = {
+                enretard: value,
+                motif: motif,
+                temp: temp,
+            };
+            apprenant.statistique.numberAbsence += 1;
+            buildingApprenantCard(apprenants);
+            saveApprenants(apprenants);
+            // Hide popup.
+            retardPopup.classList.remove('isPopedup');
+
+        });
+
+    } else if (value === "present") {
+        apprenant.statistique.tauxPresence += 1;
+        saveApprenants(apprenants);
+    }
+    else if (value === "absent") {
+        apprenant.statistique.numberAbsence += 1;
+        saveApprenants(apprenants);
+    }
+
+});
+
+const addRetardReasons = (apprenants) => {
+    document.querySelector(".retard-btn").addEventListener('click', ev => {
+        let motif = document.querySelector('input[name="motif"]').value;
+        let temp = document.querySelector('input[name="temp"]').value;
+        console.log("motif", motif);
+        console.log("temp", temp);
         buildingApprenantCard(apprenants);
         saveApprenants(apprenants);
     });
-
-
-
-
-
-});
+}
 
 // GET : local storage .
 const getApprenants = () => {
@@ -235,8 +292,8 @@ const saveApprenants = (apprenants) => {
 };
 
 const getStatusFromRadio = (apprenantId) => {
-    // let checkedRadio = document.querySelector(` input[name="status-${apprenantId}"]:checked `).value;
-    const checkedRadio = document.querySelector('input[name="status"]:checked');
+    //let checkedRadio = document.querySelector(` input[name="status-${apprenantId}"]:checked `).value;
+    const checkedRadio = document.querySelector('input[type="radio"]:checked');
 
     const selected = checkedRadio ? checkedRadio.value : "present";
 
@@ -245,8 +302,8 @@ const getStatusFromRadio = (apprenantId) => {
         absent: selected === "absent",
         retard: {
             enretard: selected === "retard",
-            motif: selected === "retard" ? apprenantMotif : "",
-            temp: selected === "retard" ? apprenantTempDarrive : ""
+            motif: "",
+            temp: "",
         }
     };
 
@@ -259,35 +316,33 @@ document.querySelector(".inscription-btn button").addEventListener('click', even
     let nom = formFilds.item(0)[1].value;
     let group = formFilds.item(0)[2].value;
 
+
+    const imageApprenant = generatingRandomApprenantImage();
+    const idApprenant = Date.now(); // unique id
+    const status = getStatusFromRadio(idApprenant);
+
+    // Apprenant Object.
     let apprenant = {
+        id: idApprenant,
         prenom: prenom,
         nom: nom,
-        group: group
+        group: group,
+        image: imageApprenant,
+        status: status,
+        statistique: {
+            numberAbsence: 0,
+            numberRetard: 0,
+            tauxPresence: 0,
+        }
     };
 
     addApprenant(apprenant);
 });
 
-const createApprenant = (apprenant, imageApprenant, status) => ({
-    id: Date.now(), // unique id
-    prenom: apprenant.prenom,
-    nom: apprenant.nom,
-    group: apprenant.group,
-    image: imageApprenant,
-    status: status
-});
 
 const addApprenant = (apprenant) => {
     const apprenants = getApprenants();
-    const status = getStatusFromRadio();
-    const imageApprenant = generatingRandomApprenantImage();
-    const newApprenant = createApprenant(
-        apprenant,
-        imageApprenant,
-        status
-    );
-
-    apprenants.push(newApprenant);
+    apprenants.push(apprenant);
     buildingApprenantCard(apprenants);
     saveApprenants(apprenants);
 };
@@ -326,6 +381,7 @@ const updateApprenant = (id, updatedData) => {
 };
 
 let modifyBarIsOpen = false;
+/*
 cardsOfLeftSide.addEventListener("click", event => {
     if (event.target.classList.contains('edit-btn')) {
         const closestTag = event.target.closest('.apprenant-card');
@@ -363,7 +419,9 @@ cardsOfLeftSide.addEventListener("click", event => {
     });
 
 });
+*/
 
 
+// 
 
 
