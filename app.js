@@ -22,7 +22,7 @@ navBarcards.addEventListener("click", ScreenToggling);
 
 // Toggling between NavBarCards & Screens.
 function ScreenToggling(event) {
-    const card = event.target.closest('.card');;
+    const card = event.target.closest('.card');
     let cibledCardId = card.id;
     let screen = document.getElementById("screen" + cibledCardId);
 
