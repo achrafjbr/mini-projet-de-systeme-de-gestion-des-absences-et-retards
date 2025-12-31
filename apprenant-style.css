@@ -243,3 +243,10 @@ body {
     text-align: center;
     color: white;
 }
+
+.status .apprenant-status{ 
+    font-size: clamp(3.5rem, 4vw, 5rem);
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}

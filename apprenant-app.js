@@ -56,6 +56,10 @@ let apprenantLastName = document.querySelector('.last-name');
 let apprenantGroup = document.querySelector('.group');
 let apprenantId = document.querySelector('.user-id');
 let apprenantImage = document.querySelector('.user-image img');
+let totalPrecence = document.querySelector('.total-precence');
+let totalAbsence = document.querySelector('.total-absence');
+let totalRetard = document.querySelector('.total-retard');
+let apprenantStatus = document.querySelector('.apprenant-status');
 
 // Loading While browser load.
 window.onload = () => {
@@ -73,11 +77,28 @@ const getApprenant = (userId) => {
 
 const renderApprenantData = (apprenant) => {
     console.log(apprenant);
+    let statistique = apprenant.statistique;
+    renderApprenantDataStatus(statistique);
     apprenantInnerElement(apprenantName, apprenant.nom);
     apprenantInnerElement(apprenantLastName, apprenant.prenom);
     apprenantInnerElement(apprenantGroup, apprenant.group);
     apprenantInnerElement(apprenantId, apprenant.id);
     apprenantInnerElement(apprenantImage, apprenant.image);
+    apprenantInnerElement(totalPrecence, statistique.tauxPresence);
+    apprenantInnerElement(totalAbsence, statistique.numberAbsence);
+    apprenantInnerElement(totalRetard, statistique.numberRetard);
+}
+
+const renderApprenantDataStatus = (statistique) => {
+    if (statistique.numberAbsence > 3 || statistique.numberAbsence > 2) {
+        apprenantStatus.innerText = 'Absent fréquent';
+        apprenantStatus.style.color = "red";
+    } else if (statistique.numberRetard == statistique.tauxPresence) {
+        apprenantStatus.innerText = "À surveiller";
+        apprenantStatus.style.color  = "green";
+    } else {
+        apprenantStatus.innerText = "Assidu";
+    }
 }
 
 const apprenantInnerElement = (HTMLElement, data) => {
@@ -87,9 +108,6 @@ const apprenantInnerElement = (HTMLElement, data) => {
         HTMLElement.innerText = data
     }
 }
-
-
-
 
 
 
