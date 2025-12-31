@@ -42,3 +42,61 @@ const toggleBetweenScreens = (currentClassIndex, targetedScreen) => {
     menu.children[targetedScreen].classList.add('activated');
 }
 
+// Local Storage functionalities:
+const STORAGE_KEY = 'apprenants';
+// - GET : local storage .
+export const getApprenants = () => {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+};
+
+// Profile section.
+// Apprenent DOM elements.
+let apprenantName = document.querySelector('.name');
+let apprenantLastName = document.querySelector('.last-name');
+let apprenantGroup = document.querySelector('.group');
+let apprenantId = document.querySelector('.user-id');
+let apprenantImage = document.querySelector('.user-image img');
+
+// Loading While browser load.
+window.onload = () => {
+    // find the apprenant id from url.
+    let userId = +window.location.href.split("?")[1];
+    getApprenant(userId);
+}
+
+const getApprenant = (userId) => {
+    let apprenants = getApprenants();
+    let apprenant = apprenants.filter((apprenent) => apprenent.id === userId);
+
+    renderApprenantData(apprenant[0]);
+}
+
+const renderApprenantData = (apprenant) => {
+    console.log(apprenant);
+    apprenantInnerElement(apprenantName, apprenant.nom);
+    apprenantInnerElement(apprenantLastName, apprenant.prenom);
+    apprenantInnerElement(apprenantGroup, apprenant.group);
+    apprenantInnerElement(apprenantId, apprenant.id);
+    apprenantInnerElement(apprenantImage, apprenant.image);
+}
+
+const apprenantInnerElement = (HTMLElement, data) => {
+    if (HTMLElement.hasAttribute("src")) {
+        HTMLElement.src = data;
+    } else {
+        HTMLElement.innerText = data
+    }
+}
+
+
+
+
+
+
+
+
+// Dashboard section
+
+// Statistic section
+
+// Historic section
