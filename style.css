@@ -11,7 +11,6 @@
     --container-color: rgba(255, 255, 255, 0.48);
     --apprenant-card-color: rgba(46, 187, 116, 0.38);
     --gray-font-color: rgba(151, 158, 172, 1);
-
 }
 
 .screen {
@@ -75,7 +74,6 @@ for adding more space between it and the content */
     display: block;
     height: max-content;
 }
-
 
 .content .add-apprenant {
     width: 2rem;

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="apprenant-style.css">
+</head>
+
+<body>
+
+    <div class="apprenant-app">
+        <div class="sidebar-menu">
+            <ul class="menu">
+                <li class="profil menu-item activated">
+                    <img src="images/student.png" alt="profile-img" class="menu-icon">PROFILE
+                </li>
+                <li class="dashboard menu-item">
+                    <img src="images/dashboard.png" alt="dashboard-img" class="menu-icon">DASHBOARD
+                </li>
+                <li class="statistic menu-item">
+                    <img src="images/statistics.png" alt="statistic-img" class="menu-icon">STATISTIQE
+                </li>
+                <li class="historic menu-item">
+                    <img src="images/historic.png" alt="historic-img" class="menu-icon">HISTORIQUE
+                </li>
+            </ul>
+        </div>
+
+        <div class="all-screens">
+            <img src="images/menu.png" alt="menu-image">
+
+            <div class="screens">
+                <div class="screen profil-screen activated">
+
+                    <div class="profile-container ">
+                        <!--Header section-->
+                        <div class="profile-header horizontal-padding">
+                            <h4>Apprenant Profile</h4>
+                            <img src="images/characters/bat-man.jpg" alt="apprenant-image" class="apprenant-image">
+                        </div>
+                        <!--Content section-->
+                        <div class="profile-content horizontal-padding">
+                            <div class="profile-content-left-side">
+                                <div class="user-card">
+                                    <div class="user-image">
+                                        <img src="images/characters/bat-man.jpg" alt="apprenant-image"
+                                            class="apprenant-image">
+                                    </div>
+                                    <div class="user-info">
+                                        <span class="name">Achraf</span>
+                                        <span class="last-name">El jabbar</span>
+                                        <div class="group">MERN STACK</div>
+                                        <div class="user-id">1767085933097</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="profile-content-rigth-side">
+                                <div class="cards">
+                                    <!--CARD ONE-->
+                                    <div id="-one" class="card active-card">
+                                        <div class="presence">
+                                            <h3 class="total-precence">23</h3>
+                                            <h4>PRECENCES</h4>
+                                        </div>
+                                    </div>
+
+                                    <!--CARD TWO-->
+                                    <div id="-two" class="card">
+                                        <div class="presence">
+                                            <h3 class="total-absence">3</h3>
+                                            <h4>ABSENCES</h4>
+                                        </div>
+                                    </div>
+
+                                    <!--CARD THREE-->
+                                    <div id="-two" class="card">
+                                        <div class="presence">
+                                            <h3 class="total-retard">2</h3>
+                                            <h4>RETARDS</h4>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="status">
+                                    <h1>STATISTIQUES</h1>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen dashboard-screen">
+                    DashboardScreen
+                </div>
+                <div class="screen statistic-screen">
+                    statistics Screen
+                </div>
+                <div class="screen historic-screen">
+                    Historic Screen
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="apprenant-app.js" type="module"></script>
+</body>
+
+</html>

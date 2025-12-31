@@ -96,7 +96,7 @@ const generatingRandomApprenantImage = () => {
     return apprenantImageList[randomAprrenantImage];
 }
 
-const STORAGE_KEY = 'apprenants'
+export const STORAGE_KEY = 'apprenants'
 
 
 
@@ -207,7 +207,10 @@ const hidePopUp = (event) => {
         group: group,
         status:{
              present: "present",
-             absent: "absent",
+             absent: {
+             enasent:"absent",
+             date: "1/1/2027"
+             },
              retard: {
                 enretard:  "retard",
                 motif: "",
@@ -282,12 +285,12 @@ const addRetardReasons = (apprenants) => {
 }
 
 // GET : local storage .
-const getApprenants = () => {
+export const getApprenants = () => {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 };
 
 // SAVE : local storage .
-const saveApprenants = (apprenants) => {
+export const saveApprenants = (apprenants) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(apprenants));
 };
 
@@ -431,7 +434,7 @@ const login = () => {
     if (userId != undefined) {
          // Go to the user profile page...
          // route to the user path.
-        window.location.href = `profil.html?${inputUserId}`;
+        window.location.href = `apprenant-bord.html?${inputUserId}`;
     } else {
         validation();
     }
